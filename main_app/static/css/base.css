@@ -1,0 +1,69 @@
+.site-header {
+  display: flex;
+  align-items: center;          
+  justify-content: center;      
+  background-color: #0f2940;    
+  padding: 1.5rem 1rem;
+  color: #fff;
+  text-align: center;
+  justify-content: flex-start;
+}
+
+.logo {
+  width: 160px;                 
+  height: auto;                 
+  margin-bottom: 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+
+.site-title {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+@media (max-width: 600px) {
+  .logo {
+    width: 120px;  
+  }
+  .site-title {
+    font-size: 1.4rem;
+  }
+}
+
+
+nav {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: flex-start;
+  background-color: #333; /* Dark background for nav */
+  padding: 0.5rem 1rem;
+  border-radius: 8px; /* Slightly rounded nav container */
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding: 0;
+  margin: 0;
+}
+
+nav ul li a {
+  text-decoration: none;  /* Remove underline */
+  color: #fff;            /* White text */
+  font-weight: 500;
+  padding: 0.5rem 1rem;   /* Clickable area */
+  border-radius: 5px;     /* Rounded corners */
+  transition: all 0.3s ease;
+}
+
+footer {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+
