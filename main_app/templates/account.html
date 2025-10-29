@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>{{ user.username }}'s Account</title>
+{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<div>
+    <h1>Account Information</h1>
+    <ul>
+        <li><strong>Username:</strong> {{ user.username }}</li>
+        <li><strong>Email:</strong> {{ user.email }}</li>
+        <li><strong>First Name:</strong> {{ user.first_name}}</li>
+        <li><strong>Last Name:</strong> {{ user.last_name}}</li>
+    </ul>
+</div>
+{% endif %}
+{% endblock %}

@@ -13,14 +13,35 @@
   <body>
     <header>
         <div class="site-header">
-            <img src="{% static 'images/header-logo.png' %}" alt="Elite Car Parts" class="logo" />
+            <a href="/"><img src="{% static 'images/header-logo.png' %}" alt="Elite Car Parts" class="logo"/></a>
             <h1 class="site-title">Elite Car Parts</h1>
+            <form class="search-form" action="/search/" role="search">
+            <label for="search" class="sr-only"></label>
+            <input id="search" type="text" name="q" placeholder="search by part name" value="" autocomplete="off" autocapitalize="off" spellcheck="false" data-controller="search-focus" data-action="keydown@window-&gt;search-focus#focusSearchField" data-search-focus-target="searchField">
+            <button type="submit" class="search-form__button">
+              <i class="fa fa-search" aria-hidden="true"></i>
+              <span class="sr-only">Search</span>
+            </button>
+          </form>
       </div>
       <nav>
         <ul>
-          <li><a href="/">Home</a></li>
+          {% if user.is_authenticated %}
           <li><a href="/about">About</a></li>
           <li><a href="/parts">Parts</a></li>
+          <li><a href="/account">My Account</a></li>
+          <li>
+            <form id='logout' method='post' action="{% url 'logout'%}">
+              {% csrf_token %}
+              <button type="submit">Log out</button>
+            </form>
+          </li>
+          {% else %}
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="{% url 'login' %}">Sign In</a></li>
+          <li><a href="{% url  'signup' %}">Sign Up</a></li>
+          {% endif %}
         </ul>
       </nav>
     </header>
