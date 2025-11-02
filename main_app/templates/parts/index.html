@@ -1,0 +1,23 @@
+{% extends "base.html" %} {% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/parts/part-index.css' %}">
+<title>Part's</title>
+{% endblock %}
+
+{% block content %}
+  {% for part in parts %}
+    <div class="part-card">
+      {% if part.img %}
+      <a href="{% url 'part-detail' part.id %}">
+        <img src="{{ part.img.url }}" alt="{{ part.name }}" />
+      {% endif %}
+      <h2>{{ part.name }}</h2>
+      </a>
+    </div>
+  {% empty %}
+    <p>No parts found.</p>
+  {% endfor %}
+
+
+{% endblock %}

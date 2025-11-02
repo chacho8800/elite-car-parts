@@ -1,0 +1,41 @@
+{% extends "base.html" %} {% load static %}
+
+{% block head %}
+<title>Cart</title>
+<link rel="stylesheet" href="{% static 'css/parts/cart.css' %}">
+{% endblock %}
+
+{% block content %}
+<h2>Your Cart</h2>
+<table>
+    {%if cart_items%}
+    <tr>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+
+    </tr>
+    {% for item in cart_items %}
+    <tr>
+        <td>
+            {% if item.part.img %}
+                <img src="{{ item.part.img.url }}" alt="{{ item.part.name }}" style="width: 100px; height: auto; object-fit: contain;">
+            {% else %}
+                No Image
+            {% endif %}
+        </td>
+        <td>{{ item.part.name }}</td>
+        <td>${{ item.part.price }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>
+            <a href="{% url 'cart-remove' item.part.id %}" class="btn-remove">Remove</a>
+        </td>
+    </tr>
+    </a>
+    {% endfor %}
+    {% else %}
+        <p>Add Part's to Cart</p>
+    {% endif%}
+</table>
+{% endblock %}

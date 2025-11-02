@@ -27,13 +27,15 @@
       <nav>
         <ul>
           {% if user.is_authenticated %}
+          <li><a href="/">Home</a></li>
           <li><a href="/about">About</a></li>
           <li><a href="/parts">Parts</a></li>
           <li><a href="/account">My Account</a></li>
+          <li><a href="{% url 'view-cart' %}">View Cart</a></li>
           <li>
             <form id='logout' method='post' action="{% url 'logout'%}">
               {% csrf_token %}
-              <button type="submit">Log out</button>
+              <button type="submit" class="logout-btn">Log out</button>
             </form>
           </li>
           {% else %}
