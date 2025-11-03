@@ -6,7 +6,8 @@ class Car(models.Model):
     make = models.CharField(max_length=50)
     model = models.CharField(max_length=50)
     year = models.IntegerField()
-    
+    owner = models.ForeignKey(User, on_delete=models.CASCADE) 
+
     def __str__(self):
         return f"{self.make} {self.model} {self.year}"
 

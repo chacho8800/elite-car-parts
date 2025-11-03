@@ -1,19 +1,39 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% load static %}
 
 {% block head %}
+<link rel="stylesheet" href="{% static 'css/parts/account.css' %}">
 <title>{{ user.username }}'s Account</title>
 {% endblock %}
 
 {% block content %}
 {% if user.is_authenticated %}
-<div>
+<div class="account-container">
     <h1>Account Information</h1>
-    <ul>
+    <ul class="account-details">
         <li><strong>Username:</strong> {{ user.username }}</li>
         <li><strong>Email:</strong> {{ user.email }}</li>
-        <li><strong>First Name:</strong> {{ user.first_name}}</li>
-        <li><strong>Last Name:</strong> {{ user.last_name}}</li>
+        <li><strong>First Name:</strong> {{ user.first_name }}</li>
+        <li><strong>Last Name:</strong> {{ user.last_name }}</li>
     </ul>
+
+<a href="{% url 'car-create' %}" class="btn-create">Add New Car</a>
+<h2>Car List</h2>
+{% if cars %}
+<div class="car-list">
+    {% for item in cars %}
+    <div class="car-card">
+        <p><strong>Make:</strong> {{ item.make }}</p>
+        <p><strong>Model:</strong> {{ item.model }}</p>
+        <p><strong>Year:</strong> {{ item.year }}</p>
+        
+        <a href="{% url 'car-update' item.id %}" class="btn-update">Edit</a>
+        <a href="{% url 'car-delete' item.id %}" class="btn-delete">Delete</a>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<p>No cars found for this account.</p>
+{% endif %}
 </div>
 {% endif %}
 {% endblock %}

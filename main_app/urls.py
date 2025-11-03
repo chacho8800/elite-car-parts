@@ -19,6 +19,15 @@ urlpatterns = [
     path("accounts/login/", views.Login.as_view(), name="login"),
     path("accounts/signup/", views.signup, name="signup"),
     path("accounts/logout/", LogoutView.as_view(next_page='/'), name="logout"),
+    
+    path("search/", views.search_part, name="search-part"),
+    path("review/<int:part_id>/", views.add_review, name="add-review"),
+    path('car/create/', views.CarCreate.as_view(), name='car-create'),
+    path('car/<int:pk>/delete', views.CarDelete.as_view(), name='car-delete'),
+    path('car/<int:pk>/update', views.CarUpdate.as_view(), name='car-update'),
+
+
+
 ]
 
 if settings.DEBUG:

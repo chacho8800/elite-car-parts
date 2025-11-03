@@ -1,0 +1,37 @@
+.part-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px;
+    max-width: 250px;
+    display: inline-block; 
+    vertical-align: top;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    background-color: #fff;
+    transition: transform 0.2s, box-shadow 0.2s;
+
+}
+
+.part-card img {
+    width: 200px;       
+    height: 150px;    
+    object-fit: cover;  
+    border-radius: 4px;
+    margin-bottom: 12px;
+}
+.part-card h2 {
+    font-size: 1.1rem;
+    color: #333;
+    margin: 0 0 8px 0;
+}
+
+.part-card p {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 4px 0;
+}
+
+.part-card + .part-card {
+    margin-left: 16px;
+}

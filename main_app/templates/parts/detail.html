@@ -26,6 +26,34 @@
         <p><strong>Year:</strong> {{ part.car.year}}</p>
     </div>
 
+    <hr>
+
+    <h1>Add Review</h1>
+
+    <form method="POST" action="{% url 'add-review' part.id %}">
+    {% csrf_token %}
+    <label for="rating">Rating (1–5):</label>
+    <input type="number" id="rating" name="rating" min="1" max="5" required>
+
+    <label for="comment">Your Comment:</label>
+    <textarea id="comment" name="comment" rows="4" placeholder="Write your review..." required></textarea>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <h2>Customer Reviews</h2>
+
+    {% if part.review_set.all %}
+        {% for review in part.review_set.all %}
+    <div class="review-card">
+      <p><strong>{{ review.user.username }}</strong> — ⭐ {{ review.rating }}/5</p>
+      <p>{{ review.comment }}</p>
+      <small>{{ review.createdAt|date:"M d, Y" }}</small>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p>No reviews yet. Be the first to add one!</p>
+    {% endif %}
+
     <div class="part-actions">
         <a href="{% url 'add-to-cart' part.id%}" class="btn btn-primary">Add to Cart</a>
         <a href="{% url 'part-index' %}" class="btn btn-secondary">Back to Parts</a>

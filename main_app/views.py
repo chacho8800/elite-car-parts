@@ -6,8 +6,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import CustomUserCreationForm
-from .models import Part, Car
-from django.views.generic import CreateView, DeleteView
+from .models import Part, Car, Review
+from django.views.generic import CreateView, DeleteView, UpdateView
 
 
 
@@ -31,14 +31,17 @@ def signup(request):
     context = {'form': form, 'error_message' : error_message}
     return render(request, 'signup.html', context)
 
-def account(request):
-    return render(request, "account.html")
-
 def home(request):
     return render(request, "home.html")
 
 def about(request):
     return render(request,"about.html")
+
+@login_required
+def account(request):
+    parts = Part.objects.filter(owner=request.user)
+    cars = Car.objects.filter(owner=request.user)
+    return render(request, "account.html", {"parts" : parts, "cars" : cars})
 
 @login_required
 def part_index(request):
@@ -78,6 +81,47 @@ def view_cart(request):
 
     return render(request, 'parts/cart.html', {'cart_items': cart_items})
 
+@login_required
+def search_part(request):
+    query = request.GET.get("q", "")
+    parts = Part.objects.all()
+
+    if request.user.is_authenticated:
+        parts = parts.filter(owner=request.user)
+
+    if query:
+        parts = parts.filter(name__icontains=query)
+
+    context = {
+        "query": query,
+        "parts": parts,
+    }
+    return render(request, "parts/search_results.html", context)
+
+
+@login_required
+def add_review(request, part_id):
+    part = Part.objects.get(id=part_id)
+
+    if request.method == "POST":
+        rating = request.POST.get("rating")
+        comment = request.POST.get("comment")
+
+        # Prevent empty reviews
+        if rating and comment:
+
+             # Create the Review object
+            Review.objects.create(
+                part=part,
+                user=request.user,
+                rating=rating,
+                comment=comment
+            )
+            return redirect("part-detail", part_id=part.id)
+
+    return render(request, "parts/detail.html", {"part": part})
+
+
 class CartDelete(LoginRequiredMixin, DeleteView):
 
     def get(self, request, part_id):
@@ -90,9 +134,20 @@ class CartDelete(LoginRequiredMixin, DeleteView):
             request.session['cart'] = cart  
         return redirect('view-cart')
 
+class CarDelete(LoginRequiredMixin, DeleteView):
+    model = Car
+    success_url ='/account/'
 
+class CarUpdate(LoginRequiredMixin,UpdateView):
+    model = Car
+    fields = ['make', 'model', 'year']
+    success_url = '/account/'
 
+class CarCreate(LoginRequiredMixin,CreateView):
+    model = Car
+    fields = ['make', 'model', 'year']
+    success_url = '/account/'
 
-    
-    
-    
+    def form_valid(self, form):
+        form.instance.owner = self.request.user  
+        return super().form_valid(form)
