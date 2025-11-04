@@ -1,11 +1,15 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% load static %}
 
 {% block head %}
 <title>Elite Car Parts </title>
+<link rel="stylesheet" href="{% static 'css/home.css' %}" />
 {% endblock %}
 
 {% block content %}
 {% if user.is_authenticated%}
-<p>Welcome {{user.username }}</p>
+<div class="hero">
+    <p>Find the perfect parts for your car quickly and easily!</p>
+    <a href="{% url 'part-index' %}" class="btn">Browse Parts</a>
+</div>
 {% endif %}
 {% endblock %}

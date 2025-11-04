@@ -77,3 +77,15 @@ footer {
   padding: 15px;
   
 }
+
+.logout-btn {
+    background-color: #3c80e7; 
+    color: white;
+    padding: 6px 12px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}

@@ -151,3 +151,39 @@ class CarCreate(LoginRequiredMixin,CreateView):
     def form_valid(self, form):
         form.instance.owner = self.request.user  
         return super().form_valid(form)
+    
+
+def parts_by_category(request, category=None):
+    parts = Part.objects.all()
+    if category:
+        parts = parts.filter(category__iexact=category)
+    return render(request, "parts/index.html", {"parts": parts, "filter_type": "Category", "filter_value": category})
+
+
+def parts_by_make(request, make):
+    parts = Part.objects.filter(car__make__iexact=make)
+    return render(request, "parts/index.html", {"parts": parts, "filter_type": "Make", "filter_value": make})
+
+
+def parts_by_model(request, model):
+    parts = Part.objects.filter(car__model__iexact=model)
+    return render(request, "parts/index.html", {"parts": parts, "filter_type": "Model", "filter_value": model})
+
+
+def parts_by_price(request):
+    parts = Part.objects.all()
+    min_price = request.GET.get('min_price')
+    max_price = request.GET.get('max_price')
+
+    if min_price:
+        parts = parts.filter(price__gte=min_price)
+    if max_price:
+        parts = parts.filter(price__lte=max_price)
+
+    filter_value = f"${min_price or 0} - ${max_price or '∞'}"
+
+    return render(request, 'parts/index.html', {
+        'parts': parts,
+        'filter_type': 'Price',
+        'filter_value': filter_value
+    })

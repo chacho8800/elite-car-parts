@@ -12,6 +12,11 @@ urlpatterns = [
 
     path("parts/", views.part_index, name="part-index"),
     path("parts/<int:part_id>", views.part_detail, name="part-detail"),
+    path("parts/make/<str:make>/", views.parts_by_make, name="parts-by-make"),
+    path("parts/model/<str:model>/", views.parts_by_model, name="parts-by-model"),
+    path('parts/price/', views.parts_by_price, name='parts-by-price'),
+
+    path("parts/category/<str:category>/", views.parts_by_category, name="parts-by-category"),
     path('cart/', views.view_cart, name='view-cart'),
     path("cart/add/<int:part_id>", views.add_to_cart, name="add-to-cart"),
     path('cart/remove/<int:part_id>/', views.CartDelete.as_view(), name='cart-remove'),
@@ -25,7 +30,6 @@ urlpatterns = [
     path('car/create/', views.CarCreate.as_view(), name='car-create'),
     path('car/<int:pk>/delete', views.CarDelete.as_view(), name='car-delete'),
     path('car/<int:pk>/update', views.CarUpdate.as_view(), name='car-update'),
-
 
 
 ]
