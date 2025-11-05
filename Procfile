@@ -1,0 +1,1 @@
+web: gunicorn elite_car_parts.wsgi

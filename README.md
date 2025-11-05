@@ -57,7 +57,8 @@ Check out the deployed version of the app here:
 - Allow users to save favorite parts.  
 - Add user profiles with saved searches or preferences.  
 - Include pagination for large catalogs.  
-- Improve overall design and UX for a more polished interface.  
+- Improve overall design and UX for a more polished interface.
+- Delete review from parts  
 
 ---
 
