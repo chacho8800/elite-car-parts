@@ -152,24 +152,24 @@ class CarCreate(LoginRequiredMixin,CreateView):
         form.instance.owner = self.request.user  
         return super().form_valid(form)
     
-
+@login_required
 def parts_by_category(request, category=None):
     parts = Part.objects.all()
     if category:
         parts = parts.filter(category__iexact=category)
     return render(request, "parts/index.html", {"parts": parts, "filter_type": "Category", "filter_value": category})
 
-
+@login_required
 def parts_by_make(request, make):
     parts = Part.objects.filter(car__make__iexact=make)
     return render(request, "parts/index.html", {"parts": parts, "filter_type": "Make", "filter_value": make})
 
-
+@login_required
 def parts_by_model(request, model):
     parts = Part.objects.filter(car__model__iexact=model)
     return render(request, "parts/index.html", {"parts": parts, "filter_type": "Model", "filter_value": model})
 
-
+@login_required
 def parts_by_price(request):
     parts = Part.objects.all()
     min_price = request.GET.get('min_price')
