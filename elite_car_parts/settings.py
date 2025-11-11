@@ -99,8 +99,8 @@ else:
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': 'elite_car_parts',
-            'USER': 'postgres',
-            'PASSWORD': 'your_local_password',
+            'USER': 'petochachoyan',
+            'PASSWORD': '',
             'HOST': 'localhost',
             'PORT': '5432',
         }
