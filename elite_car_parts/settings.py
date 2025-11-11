@@ -84,22 +84,27 @@ WSGI_APPLICATION = 'elite_car_parts.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-if 'ON_HEROKU' in os.environ:
+
+if 'DATABASE_URL' in os.environ:
     DATABASES = {
-        "default": dj_database_url.config(
-            env='DATABASE_URL',
+        'default': dj_database_url.config(
+            default=os.environ['DATABASE_URL'],
             conn_max_age=600,
             conn_health_checks=True,
             ssl_require=True,
-        ),
+        )
     }
 else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': 'elite_car_parts',
+            'USER': 'postgres',
+            'PASSWORD': 'your_local_password',
+            'HOST': 'localhost',
+            'PORT': '5432',
+        }
     }
-}
 
 
 # Password validation
