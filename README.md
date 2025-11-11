@@ -13,7 +13,7 @@
 ## Live Application
 
 Check out the deployed version of the app here:  
-[Live Demo](#) <!-- Replace # with your Heroku or hosting link -->
+[Live Demo](https://elite-car-parts-app-6ca3d942fb8d.herokuapp.com/)
 
 ---
 
